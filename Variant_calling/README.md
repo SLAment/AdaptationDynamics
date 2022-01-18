@@ -20,6 +20,13 @@ For this project, pool sequencing data of diferente populations of *S. cerevisia
 
 This pipeline was run on the supercomputer [UPPMAX](https://uppmax.uu.se/), which has a CentOS Linux operating system with a slurm scheduler. However, they should work fine also in other unix environments.
 
+## Data needed for the pipeline
+
+- Folder with gvcf files created with GATK
+- The reference genome
+- A BED file of the genome to be used as INTERVALS by GATK
+
+
 ## Building the environment
 
 The pipeline as it is depends on the following modules in UPPMAX:
