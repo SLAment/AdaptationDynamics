@@ -1,4 +1,4 @@
-# README: Call variants for the adaptation dynamics paper
+# Calling variants from pre-made gvcf files
 
 For this project, pool sequencing data of diferente populations of *S. cerevisiae* evolving on four different environments were produced. The gvcf files were produced independently from this pipeline. A few samples were discarded based on contamination with *S. paradoxus*, low coverage or potential contamination from within the experiment. The excluded samples are:
 
