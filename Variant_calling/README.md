@@ -24,7 +24,47 @@ This pipeline was run on the supercomputer [UPPMAX](https://uppmax.uu.se/), whic
 
 - Folder with gvcf files created with GATK
 - The reference genome
-- A BED file of the genome to be used as INTERVALS by GATK
+- A BED file of the genome to be used as intervals by GATK
+
+The intervals file contains the names of the contigs, the start and the end of their coordinates:
+
+	BK006935.2	0	230218
+	BK006936.2	0	813184
+	BK006937.2	0	316620
+	BK006938.2	0	1531933
+	BK006939.2	0	576874
+	BK006940.2	0	270161
+	BK006941.2	0	1090940
+	BK006934.2	0	562643
+	BK006942.2	0	439888
+	BK006943.2	0	745751
+	BK006944.2	0	666816
+	BK006945.2	0	1078177
+	BK006946.2	0	924431
+	BK006947.3	0	784333
+	BK006948.2	0	1091291
+	BK006949.2	0	948066
+
+The names of the contigs came with the reference genome, but this is the equivalence with chromosome numbers and other IDs:
+
+	Chr	Contig RefSeq_ID	Length
+	ChrI	BK006935.2	NC_001133.9	230218
+	ChrII	BK006936.2	NC_001134.8	813184
+	ChrIII	BK006937.2	NC_001135.5	316620
+	ChrIV	BK006938.2	NC_001136.10	1531933
+	ChrV	BK006939.2	NC_001137.3	576874
+	ChrVI	BK006940.2	NC_001138.5	270161
+	ChrVII	BK006941.2	NC_001139.9	1090940
+	ChrVIII	BK006934.2	NC_001140.6	562643
+	ChrIX	BK006942.2	NC_001141.2	439888
+	ChrX	BK006943.2	NC_001142.9	745751
+	ChrXI	BK006944.2	NC_001143.9	666816
+	ChrXII	BK006945.2	NC_001144.5	1078177
+	ChrXIII	BK006946.2	NC_001145.3	924431
+	ChrXIV	BK006947.3	NC_001146.8	784333
+	ChrXV	BK006948.2	NC_001147.6	1091291
+	ChrXVI	BK006949.2	NC_001148.4	948066
+	ChrMito	AJ011856.1	NC_001224.1	85779
 
 
 ## Building the environment
