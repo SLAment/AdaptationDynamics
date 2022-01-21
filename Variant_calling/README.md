@@ -1,6 +1,6 @@
 # Calling variants from pre-made gvcf files
 
-For this project, pool sequencing data of diferente populations of *S. cerevisiae* evolving on four different environments were produced. The gvcf files were produced independently from this pipeline. A few samples were discarded based on contamination with *S. paradoxus*, low coverage or potential contamination from within the experiment. The excluded samples are:
+For this project, pool sequencing data of diferente populations of *S. cerevisiae* evolving on four different environments were produced. The gvcf files were produced independently from this pipeline. A few samples were discarded based on contamination with *S. paradoxus*, low coverage or potential contamination from within the experiment (based on correlations of allele frequencies at late time points). The excluded samples are:
 
 	LiAc0.01_G1000_R1 --> probably contaminated (correlations)
 	LiAc0.01_G1000_R2 --> probably contaminated (correlations)
@@ -26,7 +26,7 @@ For this project, pool sequencing data of diferente populations of *S. cerevisia
 
 	The sample LiAc0.01_G500_R5 failed completely for sequencing
 
-But when I ran this pipeline we had only settle on these samples:
+But when I ran this pipeline we had only settle down on these samples:
 
 	LiAc0.01_G1000_R1
 	LiAc0.01_G1000_R2
@@ -44,7 +44,7 @@ But when I ran this pipeline we had only settle on these samples:
 	NaCl_G60_R5
 	NaCl_G700_R5
 
-So the others are removed at later filtering steps.
+So the others are removed at later filtering steps in subsequent pipelines (not here).
 
 
 This pipeline was run on the supercomputer [UPPMAX](https://uppmax.uu.se/), which has a CentOS Linux operating system with a slurm scheduler. However, they should work fine also in other unix environments.
