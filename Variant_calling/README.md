@@ -26,6 +26,27 @@ For this project, pool sequencing data of diferente populations of *S. cerevisia
 
 	The sample LiAc0.01_G500_R5 failed completely for sequencing
 
+But when I ran this pipeline we had only settle on these samples:
+
+	LiAc0.01_G1000_R1
+	LiAc0.01_G1000_R2
+	LiAc0.01_G1000_R4
+	LiAc0.01_G1000_R5
+	LiAc0.02_G60_R2
+	NaCl_G1000_R4
+	NaCl_G1000_R5
+	NaCl_G100_R5
+	NaCl_G200_R5
+	NaCl_G300_R5
+	NaCl_G30_R5
+	NaCl_G400_R5
+	NaCl_G500_R5
+	NaCl_G60_R5
+	NaCl_G700_R5
+
+So the others are removed at later filtering steps.
+
+
 This pipeline was run on the supercomputer [UPPMAX](https://uppmax.uu.se/), which has a CentOS Linux operating system with a slurm scheduler. However, they should work fine also in other unix environments.
 
 ## Data needed for the pipeline
