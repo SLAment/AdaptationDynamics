@@ -2,21 +2,29 @@
 
 For this project, pool sequencing data of diferente populations of *S. cerevisiae* evolving on four different environments were produced. The gvcf files were produced independently from this pipeline. A few samples were discarded based on contamination with *S. paradoxus*, low coverage or potential contamination from within the experiment. The excluded samples are:
 
-	LiAc0.01_G1000_R1
-	LiAc0.01_G1000_R2
-	LiAc0.01_G1000_R4
-	LiAc0.01_G1000_R5
-	LiAc0.02_G60_R2
-	NaCl_G1000_R4
-	NaCl_G1000_R5
-	NaCl_G100_R5
-	NaCl_G200_R5
-	NaCl_G300_R5
-	NaCl_G30_R5
-	NaCl_G400_R5
-	NaCl_G500_R5
-	NaCl_G60_R5
-	NaCl_G700_R5
+	LiAc0.01_G1000_R1 --> probably contaminated (correlations)
+	LiAc0.01_G1000_R2 --> probably contaminated (correlations)
+	LiAc0.01_G1000_R4 --> probably contaminated (correlations)
+	LiAc0.01_G1000_R5 --> probably contaminated (correlations)
+	LiAc0.02_G1000_R1 --> probably contaminated, shares de novo mutation with NaCl_G1000_R1, MAF is too diverse in G1000
+	LiAc0.02_G1000_R2 --> probably contaminated, shares de novo mutation with NaCl_G1000_R1, MAF is too diverse in G1000
+	LiAc0.02_G1000_R3 --> probably contaminated, shares de novo mutation with NaCl_G1000_R1, MAF is too diverse in G1000
+	LiAc0.02_G1000_R4 --> probably contaminated, shares de novo mutation with NaCl_G1000_R1 MAF is too diverse in G1000
+	LiAc0.02_G1000_R5 --> probably contaminated, shares de novo mutation with NaCl_G1000_R1, MAF is too diverse in G1000
+	LiAc0.02_G60_R2 --> too low coverage
+	NaCl_G1000_R4 --> contamination with paradoxus
+	NaCl_G1000_R5 --> contamination with paradoxus
+	NaCl_G100_R5 --> contamination with paradoxus
+	NaCl_G200_R5 --> contamination with paradoxus
+	NaCl_G300_R5 --> contamination with paradoxus
+	NaCl_G30_R5 --> contamination with paradoxus
+	NaCl_G400_R5 --> contamination with paradoxus
+	NaCl_G500_R5 --> contamination with paradoxus
+	NaCl_G60_R5 --> contamination with paradoxus
+	NaCl_G700_R5 --> contamination with paradoxus
+	NaCl_G1000_R1 ---> probably contaminated, shares de novo mutation with LiAc0.01_G1000_R* and a lot of SNPs go back to 50/50 there
+
+	The sample LiAc0.01_G500_R5 failed completely for sequencing
 
 This pipeline was run on the supercomputer [UPPMAX](https://uppmax.uu.se/), which has a CentOS Linux operating system with a slurm scheduler. However, they should work fine also in other unix environments.
 
