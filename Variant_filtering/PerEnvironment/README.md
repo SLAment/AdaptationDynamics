@@ -169,13 +169,12 @@ But the real results of the pipeline are, of course, in the `results` folder:
 When running this pipeline, UPPMAX had the following specifications:
 
 	$ hostnamectl
-	   Static hostname: rackham2.uppmax.uu.se
+	   Static hostname: rackham3.uppmax.uu.se
 	         Icon name: computer-server
 	           Chassis: server
-	        Machine ID: f911affe94fa4ccb8e6deebe489bdd9b
-	           Boot ID: 20854dc584e94630ae6d6860d5e94dd7
+	        Machine ID: dee8e88d3c6a4fa68334e18556ae967b
+	           Boot ID: 30c307e11d174a75a49c4c2f1a12df55
 	  Operating System: CentOS Linux 7 (Core)
 	       CPE OS Name: cpe:/o:centos:centos:7
-	            Kernel: Linux 3.10.0-1160.41.1.el7.x86_64
+	            Kernel: Linux 3.10.0-1160.59.1.el7.x86_64
 	      Architecture: x86-64
-
