@@ -1,12 +1,12 @@
-# README of vcf4adaptation_env: Preparing the vcf file for the analysis of allele frequencies, splitting by environment
+# Preparing the vcf file for the analysis of allele frequencies, splitting by environment: vcf4adaptation_env.smk 
 
-This pipeline produces variant sets for analysis of standing genetic variation of [Ament-Velásquez, Gilchrist et al. 2022 bioRxiv](https://www.biorxiv.org/content/10.1101/2022.03.26.485920v1). For this project, pool sequencing data of diferente populations of S. cerevisiae evolving in four different environments were produced. First, variants were called with GATK into g.vcf files and then processed with the pipeline `varcall_adaptation.smk`. Originally we had also produced a set with the multiallelic sites, but they were not used in the paper in the end.
+This pipeline produces variant sets for analysis of standing genetic variation of [Ament-Velásquez, Gilchrist et al. 2022 bioRxiv](https://www.biorxiv.org/content/10.1101/2022.03.26.485920v1). For this project, pool sequencing data of diferente populations of *S. cerevisiae* evolving in four different environments were produced. First, variants were called with GATK into `g.vcf` files and then processed with the pipeline `varcall_adaptation.smk`. Originally we had also produced a set with the multiallelic sites, but they were not used in the paper in the end.
 
-There are two versions of this pipeline, `vcf4adaptation.smk` and `vcf4adaptation_env.smk`. The former is meant to produce a common set of variants present in all samples to study the dynamics of the standing genetic generation. The latter focus instead in the samples within each environment and attempts to find *de novo* mutations. The final set of manually curated *de novo* mutatiosn is take by `vcf4adaptation.smk` to plot these mutations on top of the standing genetic generation.
+There are two versions of this pipeline, `vcf4adaptation.smk` and `vcf4adaptation_env.smk`. The former is meant to produce a common set of variants present in all samples to study the dynamics of the standing genetic generation. The latter focus instead in the samples within each environment and attempts to find *de novo* mutations. The final set of manually curated *de novo* mutations is taken by `vcf4adaptation.smk` to plot these mutations on top of the standing genetic generation.
 
 ## Input files
 
-This pipeline takes a vcf files with all the samples from all the environments, already filtered for some minimum quality (as in `varcall_adaptation.smk`); reference genome (strain S288C, R64; GenBank Accession GCA_000146045.2; provided here in the repository) in fasta format (we did it all without the mitochondrial contig); and a list of manually curated mutations to be removed from the final plots. I produced those by examining mapped reads in the [Integrative Genome Viewer](https://software.broadinstitute.org/software/igv/) v. 2.12.2 (Robinson et al. 2017). Sites with reads mapping to multiple locations, variant caller inconsistencies, and sharp increases in coverage were discarded (30 variants). This file is provided in the folder `data`.
+This pipeline takes a vcf files with all the samples from all the environments, already filtered for some minimum quality (as in [`varcall_adaptation.smk`](https://github.com/SLAment/AdaptationDynamics/tree/main/Variant_calling)); reference genome (strain S288C, R64; GenBank Accession GCA_000146045.2; provided here in the repository) in fasta format (we did it all without the mitochondrial contig); and a list of manually curated mutations to be removed from the final plots. I produced those by examining mapped reads in the [Integrative Genome Viewer](https://software.broadinstitute.org/software/igv/) v. 2.12.2. Sites with reads mapping to multiple locations, variant caller inconsistencies, and sharp increases in coverage were discarded (30 variants). This file is provided in the folder `data`.
 
 The pipeline also needs a number of python and R scripts, available in `scripts`. The paths to all these files should be specified at the top of the snakemake file (`vcf4adaptation_env.smk`):
 
@@ -42,6 +42,8 @@ Due to problems of contamination or low coverage, the following samples were exc
 
 The sample `LiAc0.01_G500_R5` failed completely for sequencing.
 
+The scripts exclude the samples automatically.
+
 ## Building the environment
 
 The pipeline as it is depends on the following libraries in UPPMAX:
@@ -59,7 +61,7 @@ Which is equivalent to using these packages:
 Some plotting (in the script `DeNovoMutations.R`) won't work with versions of ggplot < 3.3.5 (e.g. 3.3.3)
 
 
-I also used [snpEff](https://pcingola.github.io/SnpEff/se_running/) v. 5.0. Even tho this program is available in Uppmax, the version is lower and the adequate database for this genome is not there. I don't have writing rights so I can't download it myself. Hence, like Nima, I decided to install it myself. For this I made a new [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) environment, but this is done within the pipeline itself using a little environment yaml file
+I also used [snpEff](https://pcingola.github.io/SnpEff/se_running/) v. 5.0. Even tho this program is available in Uppmax, the version is lower and the adequate database for this genome is not there. I don't have writing rights so I can't download it myself. Hence, I made a new [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) environment, but this is done within the pipeline itself using a little environment yaml file:
 
 	$ cat envs/snpEff.yaml
 	channels:

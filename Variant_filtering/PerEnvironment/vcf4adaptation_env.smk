@@ -234,8 +234,6 @@ rule PlotCoverage:
 		threads = 10, # It needs some memory
 		lquantile = 0.25,
 		uquantile = 0.95,
-	# conda: 
-	# 	"envs/statsplot.yaml"
 	script:
 		vcf4adaptation_vcfR_plotter
 
@@ -321,9 +319,6 @@ rule plotY55freq:
 		# Extra for exploring data, but didn't make it to the paper
 		plot = "figures/{outputname}_{env}_var_bi_miss0_{typevar}_25x95p_map1_Y55freqG700.png",
 		tablewin = "data/{outputname}_{env}_var_bi_miss0_{typevar}_25x95p_map1_Y55freq_win.tab",
-
-	# conda: 
-	# 	"envs/plot.yaml"
 	params:
 		time = "30:00",
 		threads = 1,
@@ -429,8 +424,6 @@ rule plotDeNovoMutations:
 		plotgenes = "results/deNovo_all_0.1_CoolGenes.pdf",
 		genes4stringdb = "results/deNovoFixers_0.35_genes_4stringdb.txt",
 		denovoeffectsp = "results/deNovoFixers_0.35_SNPeff.pdf",
-	# conda: 
-	# 	"envs/plot.yaml"
 	params:
 		time = "30:00",
 		threads = 1,
