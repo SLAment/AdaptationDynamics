@@ -97,17 +97,19 @@ To check that the files for the pipeline are in order:
 
 	$ snakemake --snakefile vcf4adaptation_env.smk -pn
 
-So the pipeline assumes the BAM files are already in said folders.
+And to run it in a 
 
 	$ screen -R filtering
 	$ module load bioinfo-tools snakemake/5.30.1 bcftools/1.12 vcftools/0.1.16 GATK/4.1.4.1 BEDTools/2.29.2 R_packages/4.0.4
-	$ snakemake --snakefile vcf4adaptation_env.smk -p --cluster "sbatch -A snic2022-22-46 -M snowy -p core -n {params.threads} -t {params.time} --mail-user sandra.ament@evobio.eu --mail-type=ALL" -j 30 --keep-going --use-conda &> snakemake.log &
+	$ snakemake --snakefile vcf4adaptation_env.smk -p --cluster "sbatch -A snicXXXX-X-XXX -p core -n {params.threads} -t {params.time} --mail-user xxxxxx@xxxxx.xx --mail-type=ALL" -j 30 --keep-going --use-conda &> snakemake.log &
+
+Where `snicXXXX-X-XXX` is your SNIC project.
 
 Alternatively, it can be in a sbatch script:
 
 	$ cat snakemake.sh
 	#!/bin/bash
-	#SBATCH -A snic2022-22-46
+	#SBATCH -A snicXXXX-X-XXX
 	#SBATCH -J snakemake
 	#SBATCH -n 3
 	#SBATCH -t 2:00:00
@@ -121,6 +123,10 @@ Alternatively, it can be in a sbatch script:
 	echo
 
 	snakemake --snakefile vcf4adaptation_env.smk -p --jobs $SLURM_JOB_CPUS_PER_NODE --keep-going --use-conda
+
+And do
+
+	$ sbatch snakemake.sh
 
 ## Results
 
@@ -152,6 +158,7 @@ But the real results of the pipeline are, of course, in the `results` folder:
 ![coolgenes](deNovo_all_0.1_CoolGenes.png "coolgenes")
 - deNovoFixers_0.35_genes_4stringdb.txt -- The list of genes used as input for the [STRING database](https://string-db.org/cgi/network?taskId=bELrKuOvTs6q&sessionId=bWoDGnbyDEkf&allnodes=1), used to produce Figure 5 in the BioRxiv.
 - deNovoFixers_0.35_SNPeff.pdf -- Supplementary Figure 7 in the BioRxiv with the distribution of effects of the de novo mutations.
+![snpEff](deNovoFixers_0.35_SNPeff.png "snpEff")
 - deNovoFixers_0.35_trajectories_curated.tab -- A data frame (long format) with the trajectory data of the curated de novo mutations. Used by `vcf4adaptation.smk`.
 - deNovoFixers_0.35_trajectories_raw.tab -- A data frame (long format) with the trajectory data of de novo mutations before manual curation.
 - deNovoGenesINFO_fixers_0.35.tab -- a table with the de novo mutation variants and their respective effects extracted from snpEff.
