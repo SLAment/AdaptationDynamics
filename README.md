@@ -1,6 +1,6 @@
 # Adaptation Dynamics
 
-Code associated to the project ["The dynamics of adaptation to stress from standing genetic variation"](https://www.biorxiv.org/content/10.1101/2022.03.26.485920v1) from the Stelkens Lab.
+Code associated to the project ["The dynamics of adaptation to stress from standing genetic variation and de novo mutations"](https://www.biorxiv.org/content/10.1101/2022.03.26.485920v1) from the Stelkens Lab.
 
 There are three main [Snakemake](https://snakemake.readthedocs.io/en/stable/) pipelines the deal with the variant data, analysis and plotting. 
 
