@@ -17,11 +17,13 @@
 # $ grep -P 'BK006934.2\t1495\t' Raw_Call.vcf | cut -f1-10
 # BK006934.2	1495	.	G	A,C	32531.97	.	AC=166,12;AF=0.241,0.017;AN=690;BaseQRankSum=0.00;DP=38775;ExcessHet=139.8646;FS=37.983;InbreedingCoeff=-0.3996;MLEAC=183,10;MLEAF=0.265,0.014;MQ=33.44;MQRankSum=0.00;QD=1.89;ReadPosRankSum=0.00;SOR=4.220	GT:AD:DP:GQ:PL	0/1:92,12,5:109:99:136,0,3034,286,2915,3333
 
+# I kept this design but in the end I didn't use these multiallelic sites.
+
 #############################################################################
 # ==================================================
 # S. Lorena Ament-Velasquez
 # Stelkens Lab, Department of Zoology, Stockholm University, Sweden
-# 2021-09-24-29
+# 2021-09-24 -- 2022-03-29
 # ---------------
 # +++++++++++++++++++++++++++++++++++++++++++++++++
 # Version 1
@@ -83,9 +85,6 @@ rule definesamples:
 		"data/samples.txt"
 	shell:
 		"bcftools view -h {input} | grep '#CHROM' | cut -f10- | tr '\\t' '\\n' > {output}"
-		# "bcftools view -h {input} | grep '#CHROM' | cut -f10- | tr '\\t' '\\n' | grep -vE '^30C_T|^H' | grep -vE '^NaCl_G[0-9]+_R5|NaCl_G1000_R4|LiAc0.01_G1000_R[1,2,4,5]|LiAc0.02_G60_R2' > {output}"
-		# Exclude the hibryd samples, contaminated treatments and time points, and low coverage ones
-
 
 rule listSamplesByEnv:
 	""" Make lists of samples by environment """
