@@ -32,7 +32,37 @@ REFGenomeBED = "path/2/reference/genome.fa.fai.bed" # CHANGE
 ENVIRONMENTS = ["NaCl", "Ethanol", "LiAc0.01", "LiAc0.02", "SK1", "Y55", "N_Founder_R1", "LE_Founder_R1"]
 
 # Samples to be removed
-BADLIST = ["LiAc0.01_G1000_R1", "LiAc0.01_G1000_R2", "LiAc0.01_G1000_R4", "LiAc0.01_G1000_R5", "LiAc0.02_G60_R2", "NaCl_G1000_R4", "NaCl_G1000_R5", "NaCl_G100_R5", "NaCl_G200_R5", "NaCl_G300_R5", "NaCl_G30_R5", "NaCl_G400_R5", "NaCl_G500_R5", "NaCl_G60_R5", "NaCl_G700_R5"]
+BADLIST = [
+"NaCl_G1000_R4",
+"NaCl_G1000_R5",
+"NaCl_G30_R5",
+"NaCl_G60_R5",
+"NaCl_G100_R5",
+"NaCl_G200_R5",
+"NaCl_G300_R5",
+"NaCl_G400_R5",
+"NaCl_G500_R5",
+"NaCl_G700_R5",
+"LiAc0.02_G60_R2",
+"NaCl_G1000_R1",
+"LiAc0.01_G30_R3",
+"LiAc0.01_G60_R3",
+"LiAc0.01_G100_R3",
+"LiAc0.01_G200_R3",
+"LiAc0.01_G300_R3",
+"LiAc0.01_G400_R3",
+"LiAc0.01_G500_R3",
+"LiAc0.01_G700_R3",
+"LiAc0.01_G1000_R3",
+"LiAc0.01_G1000_R1",
+"LiAc0.01_G1000_R2",
+"LiAc0.01_G1000_R4",
+"LiAc0.01_G1000_R5",
+"LiAc0.02_G1000_R1",
+"LiAc0.02_G1000_R2",
+"LiAc0.02_G1000_R3",
+"LiAc0.02_G1000_R4",
+"LiAc0.02_G1000_R5"]
 
 # -------------------------------------------------
 
