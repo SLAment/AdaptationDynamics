@@ -1,8 +1,7 @@
 ####Phenotypic Analyses and Plots####
-#By Ciaran Gilchrist
-#Updated 2022-03-22
+#Updated 2022-04-13
 #Analyses includes ANOVAs, linear models and linear mixed effect models
-#Plots by ggplot2
+#Plots by ggplot2 with gridExtra
 #R version 4.1.0 (2021-05-18)
 #Packages used - car, dplyr, emmeans, ggplot2, gridExtra and MASS
 
@@ -68,7 +67,9 @@ L1_3 <-mean(subset(EvoL1, Generation == "300")$Yield)
 L1_5 <-mean(subset(EvoL1, Generation == "500")$Yield)
 L1_7 <-mean(subset(EvoL1, Generation == "700")$Yield)
 (L1_1-L1_0)/(L1_7-L1_0)
-#29.7%
+#24.14%
+(L1_7-L1_0)/L1_7
+#14.7% increase
 
 L2_0 <-mean(subset(EvoL2, Generation == "0")$Yield)
 L2_1 <-mean(subset(EvoL2, Generation == "100")$Yield)
@@ -268,8 +269,6 @@ L1F$Replicate[L1F$Replicate=="R2"]<- "R3"
 EvoL1 <- rbind(L1F, EvoL1)
 L1F$Replicate[L1F$Replicate=="R3"]<- "R4"
 EvoL1 <- rbind(L1F, EvoL1)
-L1F$Replicate[L1F$Replicate=="R4"]<- "R5"
-EvoL1 <- rbind(L1F, EvoL1)
 
 
 EvoL2 <- subset(OD, Population == "EvoL2" & Environment == "LiAc0.02" & Generation != "0")
@@ -394,6 +393,7 @@ anova(fm1, fm5)
 
 Anova(fm5)
 #Type II ANOVA on model
+#F = 9.51, df = 19, p < 0.001
 summary(fm5)
 L1.emm <- emmeans(fm5, ~ Replicate:Generation)
 L1rep <- contrast(L1.emm, "pairwise", simple = "Replicate", combine = TRUE , adjust = "tukey")
@@ -529,7 +529,7 @@ EvoL2_by_replicate$ci <- 1.96*(EvoL2_by_replicate$sd/sqrt(EvoL2_by_replicate$n))
 EvoE_by_replicate <- EvoE %>% group_by(Group, Population, Generation, Environment, Replicate) %>% summarise(mean_relative_yield = mean(Relative_Yield),  sd = sd(Relative_Yield), n = n_distinct(Relative_Yield))
 EvoE_by_replicate$ci <- 1.96*(EvoE_by_replicate$sd/sqrt(EvoE_by_replicate$n))
 
-Mean <- rbind(EvoN_by_replicate, EvoL1_by_replicate, EvoL2_by_replicate, EvoE_by_replicate)
+Mean_reps <- rbind(EvoN_by_replicate, EvoL1_by_replicate, EvoL2_by_replicate, EvoE_by_replicate)
 
 #Add founder for each replicate
 
@@ -538,22 +538,24 @@ Mean_evo <- subset(Mean_reps, Generation != 0)
 Mean_founder <- subset(Mean_reps, Generation == 0)
 
 Mean_founder$Replicate[Mean_founder$Replicate=="R0"]<- "R1"
-Mean_reps <- rbind(Mean_founder, Mean_evo)
+Mean_evo <- rbind(Mean_founder, Mean_evo)
 
 Mean_founder$Replicate[Mean_founder$Replicate=="R1"]<- "R2"
-Mean_reps <- rbind(Mean_founder, Mean_reps)
+Mean_evo <- rbind(Mean_founder, Mean_evo)
 
-Mean_founder$Replicate[Mean_founder$Replicate=="R2"]<- "R3"
-Mean_reps <- rbind(Mean_founder, Mean_reps)
+Mean_founder$Replicate[Mean_founder$Replicate=="R2"]<- "R4"
+Mean_evo <- rbind(Mean_founder, Mean_evo)
 
-Mean_founder$Replicate[Mean_founder$Replicate=="R3"]<- "R4"
-Mean_reps <- rbind(Mean_founder, Mean_reps)
+Mean_founder$Replicate[Mean_founder$Replicate=="R4"]<- "R3"
+Mean_founder <- subset(Mean_founder, Population != "EvoL1")
+Mean_evo <- rbind(Mean_founder, Mean_evo)
 
-Mean_founder$Replicate[Mean_founder$Replicate=="R4"]<- "R5"
-Mean_founder <- subset(Mean_founder, Population == "EvoL1" | Population == "EvoL2")
-Mean_reps <- rbind(Mean_founder, Mean_reps)
+Mean_founder <- subset(Mean_reps, Generation == 0)
+Mean_founder <- subset(Mean_founder, Population == "EvoL2"| Population == "EvoL1")
+Mean_founder$Replicate[Mean_founder$Replicate=="R0"]<- "R5"
+Mean_evo <- rbind(Mean_founder, Mean_evo)
 
-write.table(Mean_reps, file = "Stats/replicate_means.txt", sep = "\t", row.names = F)
+write.table(Mean_evo, file = "Stats/replicate_means.txt", sep = "\t", row.names = F)
 
 
 Mean_reps <- read.delim("Stats/replicate_means.txt")
@@ -600,7 +602,7 @@ p3 <- ggplot(data = subset(Mean_reps, Population == "EvoL1"), aes(x = Generation
   geom_ribbon(alpha=0.1, colour = NA, aes(ymin = mean_relative_yield-ci, ymax = mean_relative_yield+ci, fill = Replicate)) +
   geom_hline(yintercept=1, linetype="dashed", size = 0.5) +
   scale_x_continuous(breaks=c(0, 100, 300, 500, 700)) +
-  scale_colour_manual(values=c("#D8BFD8", "#DA70D6", "#9400D3", "#800080" , "#4B0082")) + scale_fill_manual(values=c("#D8BFD8", "#DA70D6", "#9400D3", "#800080" , "#4B0082")) +
+  scale_colour_manual(values=c("#D8BFD8", "#DA70D6", "#9400D3", "#800080")) + scale_fill_manual(values=c("#D8BFD8", "#DA70D6", "#9400D3", "#800080")) +
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
                      axis.line = element_line(colour = "black"), plot.title = element_text(hjust = 0.5), title = element_text(size=16, face="bold"),axis.text=element_text(size=16), axis.ticks.length = unit(0.5, "cm"), 
                      axis.title=element_text(size=18,face="bold"), legend.title=element_text(size=16), legend.text=element_text(size=16))
@@ -666,22 +668,25 @@ Mean_evo <- subset(SC_by_reppopgen, Generation != 0)
 Mean_founder <- subset(SC_by_reppopgen, Generation == 0)
 
 Mean_founder$Replicate[Mean_founder$Replicate=="R0"]<- "R1"
-Mean_reps <- rbind(Mean_founder, Mean_evo)
+Mean_evo <- rbind(Mean_founder, Mean_evo)
 
 Mean_founder$Replicate[Mean_founder$Replicate=="R1"]<- "R2"
-Mean_reps <- rbind(Mean_founder, Mean_reps)
+Mean_evo <- rbind(Mean_founder, Mean_evo)
 
-Mean_founder$Replicate[Mean_founder$Replicate=="R2"]<- "R3"
-Mean_reps <- rbind(Mean_founder, Mean_reps)
+Mean_founder$Replicate[Mean_founder$Replicate=="R2"]<- "R4"
+Mean_evo <- rbind(Mean_founder, Mean_evo)
 
-Mean_founder$Replicate[Mean_founder$Replicate=="R3"]<- "R4"
-Mean_reps <- rbind(Mean_founder, Mean_reps)
+Mean_founder$Replicate[Mean_founder$Replicate=="R4"]<- "R3"
+Mean_founder <- subset(Mean_founder, Population != "EvoL1")
+Mean_evo <- rbind(Mean_founder, Mean_evo)
 
-Mean_founder$Replicate[Mean_founder$Replicate=="R4"]<- "R5"
-Mean_founder <- subset(Mean_founder, Population == "EvoL1" | Population == "EvoL2")
-Mean_reps <- rbind(Mean_founder, Mean_reps)
+Mean_founder <- subset(SC_by_reppopgen, Generation == 0)
+Mean_founder <- subset(Mean_founder, Population == "EvoL2"| Population == "EvoL1")
+Mean_founder$Replicate[Mean_founder$Replicate=="R0"]<- "R5"
 
-write.table(Mean_reps, file = "Stats/SC_means.txt", sep = "\t", row.names = F)
+Mean_evo <- rbind(Mean_founder, Mean_evo)
+
+write.table(Mean_evo, file = "Stats/SC_means.txt", sep = "\t", row.names = F)
 
 SC_by_popgen <- OD_SC %>% group_by(Population, Generation) %>% summarise(mean_relative_yield = mean(Relative_Yield),  sd = sd(Relative_Yield), n = n_distinct(Relative_Yield))
 SC_by_popgen$ci <- 1.96*(SC_by_popgen$sd/sqrt(SC_by_popgen$n))
@@ -694,7 +699,6 @@ Mean_reps$Replicate[Mean_reps$Replicate=="R2"]<- "R2_anc"
 Mean_reps$Replicate[Mean_reps$Replicate=="R3"]<- "R3_anc"
 Mean_reps$Replicate[Mean_reps$Replicate=="R4"]<- "R4_anc"
 Mean_reps$Replicate[Mean_reps$Replicate=="R5"]<- "R5_anc"
-Mean_reps <- subset(Mean_reps, select = -c(Group, n))
 
 Mean_reps_adapted <- read.delim("Stats/replicate_means.txt")
 Mean_reps_adapted$Replicate[Mean_reps_adapted$Replicate=="R1"]<- "R1_adap"
@@ -702,7 +706,7 @@ Mean_reps_adapted$Replicate[Mean_reps_adapted$Replicate=="R2"]<- "R2_adap"
 Mean_reps_adapted$Replicate[Mean_reps_adapted$Replicate=="R3"]<- "R3_adap"
 Mean_reps_adapted$Replicate[Mean_reps_adapted$Replicate=="R4"]<- "R4_adap"
 Mean_reps_adapted$Replicate[Mean_reps_adapted$Replicate=="R5"]<- "R5_adap"
-Mean_reps_adapted <- subset(Mean_reps_adapted, select = -c(Group, Environment))
+Mean_reps_adapted <- subset(Mean_reps_adapted, select = -c(Environment))
 
 Mean_reps <- rbind(Mean_reps, Mean_reps_adapted)
 Mean_reps$Replicate <- ordered(Mean_reps$Replicate, levels = c("R1_anc", "R2_anc", "R3_anc", "R4_anc", "R5_anc", "R1_adap", "R2_adap", "R3_adap", "R4_adap", "R5_adap"))
@@ -754,8 +758,8 @@ p3 <- ggplot(data = subset(Mean_reps, Population == "EvoL1"), aes(x = Generation
   geom_hline(yintercept=1, linetype="dashed", size = 0.5) +
   scale_x_continuous(breaks=c(0, 100, 300, 500, 700, 1000)) +
   scale_y_continuous(breaks=seq(0.5, 3 , 0.5), limit = c(0.4, 3)) +
-  scale_colour_manual(values=c("#D8BFD8", "#DA70D6", "#9400D3", "#800080", "#4B0082", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3")) + 
-  scale_fill_manual(values=c("#D8BFD8", "#DA70D6", "#9400D3", "#800080", "#4B0082", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3")) +
+  scale_colour_manual(values=c("#D8BFD8", "#DA70D6", "#9400D3", "#800080", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3")) + 
+  scale_fill_manual(values=c("#D8BFD8", "#DA70D6", "#9400D3", "#800080", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3")) +
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
                      axis.line = element_line(colour = "black"), plot.title = element_text(hjust = 0.5), title = element_text(size=10,face="bold"), axis.text=element_text(size=14), axis.ticks.length = unit(0.25, "cm"),
                      axis.title=element_text(size=14,face="bold"))
