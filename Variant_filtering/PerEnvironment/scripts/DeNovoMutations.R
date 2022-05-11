@@ -126,15 +126,13 @@ fixfounder <- function(allfreq){
 allfreq_snps <- rbind(fixfounder(allfreq_EtOH_snps),
                       fixfounder(allfreq_NaCl_snps),
                       fixfounder(allfreq_LiAc01_snps),
-                      fixfounder(allfreq_LiAc02_snps)) %>% 
-  filter(!(gen == 1000 & Environment %in% c("LiAc0.01", "LiAc0.02"))) %>% filter(!sample == "NaCl_G1000_R1") # Bad samples
+                      fixfounder(allfreq_LiAc02_snps))
 
 # put INDELs together
 allfreq_indels <- rbind(fixfounder(allfreq_EtOH_indels),
                         fixfounder(allfreq_NaCl_indels),
                         fixfounder(allfreq_LiAc01_indels),
-                        fixfounder(allfreq_LiAc02_indels)) %>% 
-  filter(!(gen == 1000 & Environment %in% c("LiAc0.01", "LiAc0.02"))) %>% filter(!sample == "NaCl_G1000_R1") # Bad samples
+                        fixfounder(allfreq_LiAc02_indels))
 
 # Now together
 allfreq <- rbind(data.frame(allfreq_snps, class = "SNP"),
