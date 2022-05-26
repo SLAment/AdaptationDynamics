@@ -141,7 +141,7 @@ The output of the pipeline is a bunch of figures, some for diagnostics (mostly i
 - `All_Variants_parents_PASS_bi_miss0_SNPs_25x95p_map1_allenv_shared_clusters_bigbois.pdf` - a bar plot for counts of haplotypes per replicated population. Not used in the paper
 - `All_Variants_parents_PASS_bi_miss0_SNPs_25x95p_map1_allenv_shared_clusters_trajectories.pdf` - main figure 3, with the trajectories of haplotypes and de novo mutations
 
-![fig3](Fig3_All_Variants_parents_PASS_bi_miss0_SNPs_25x95p_map1_allenv_shared_clusters_trajectories "fig3")
+![fig3](Fig3_All_Variants_parents_PASS_bi_miss0_SNPs_25x95p_map1_allenv_shared_clusters_trajectories.png "fig3")
 
 
 - `CoverageVsPropFixation_delta_SNPs.pdf` - Supplementary Figure 7, exploring the relationship of the proportion of nearly fixed sites and coverage
