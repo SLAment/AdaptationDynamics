@@ -103,7 +103,7 @@ And to run it in a
 	$ module load bioinfo-tools snakemake/5.30.1 bcftools/1.12 vcftools/0.1.16 GATK/4.1.4.1 BEDTools/2.29.2 R_packages/4.0.4
 	$ snakemake --snakefile vcf4adaptation_env.smk -p --cluster "sbatch -A snicXXXX-X-XXX -p core -n {params.threads} -t {params.time} --mail-user xxxxxx@xxxxx.xx --mail-type=ALL" -j 30 --keep-going --use-conda &> snakemake.log &
 
-Where `snicXXXX-X-XXX` is your SNIC project.
+Where `snicXXXX-X-XXX` is your SNIC project and xxxxxx@xxxxx.xx is your email account where you get reports of the job status.
 
 Alternatively, it can be in a sbatch script:
 
