@@ -140,6 +140,10 @@ The output of the pipeline is a bunch of figures, some for diagnostics (mostly i
 
 - `All_Variants_parents_PASS_bi_miss0_SNPs_25x95p_map1_allenv_shared_clusters_bigbois.pdf` - a bar plot for counts of haplotypes per replicated population. Not used in the paper
 - `All_Variants_parents_PASS_bi_miss0_SNPs_25x95p_map1_allenv_shared_clusters_trajectories.pdf` - main figure 3, with the trajectories of haplotypes and de novo mutations
+
+![fig3](Fig3_All_Variants_parents_PASS_bi_miss0_SNPs_25x95p_map1_allenv_shared_clusters_trajectories "fig3")
+
+
 - `CoverageVsPropFixation_delta_SNPs.pdf` - Supplementary Figure 7, exploring the relationship of the proportion of nearly fixed sites and coverage
 - `Parallel_count_G100vsG700.pdf` - Supplementary Figure 8, comparing the number of windows fixed for a parental genotype in the environmental parallelism index analysis of generation 100 and 700
 - `Parallel_heatmap_G30.pdf` - Supplementary Figure 9, environmental parallelism index of generation 30
@@ -151,7 +155,6 @@ The output of the pipeline is a bunch of figures, some for diagnostics (mostly i
 - `Y55trajectory_SNPs_novo_NaCl.pdf` - Supplementary Figure 3, with trajectory of all SNPs per chromosome and replicate in NaCl
 
 
-![fig7](Fig7_deNovo_all_0.1_CoolGenes.png "fig7")
 
 
 ## About UPPMAX
