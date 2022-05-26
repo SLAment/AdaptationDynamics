@@ -6,7 +6,7 @@ There are three main [Snakemake](https://snakemake.readthedocs.io/en/stable/) pi
 
 1. `varcall_adaptation.smk` -- For variant calling (directory `Variant_calling`)
 2. `vcf4adaptation_env.smk` -- For variant filtering and analysis of de novo mutations (directory `Variant_filtering/PerEnvironment/`)
-3. `vcf4adaptation.smk` -- For variant filtering and analysis of the standing genetic variation (directory `Variant_filtering/AllTogether/`) -- TODO
+3. `vcf4adaptation.smk` -- For variant filtering and analysis of the standing genetic variation (directory `Variant_filtering/AllTogether/`)
 
 The repository also contains code of Ciaran Gilchrist analysing the phenotypic data.
 
