@@ -15,14 +15,14 @@ import os  # For the input name
 from datetime import datetime
 
 # ------------------------------------------------------
-version = 1.1
+version = 1.2
 versiondisplay = "{0:.2f}".format(version)
 
 # Make a nice menu for the user
 parser = argparse.ArgumentParser(description="* Filter the vcf file using coverage values *", epilog="") # Create the object using class argparse
 
 # Add options
-parser.add_argument('vcf', help="Standard vcf file compressed with bgzip")
+parser.add_argument('vcf', help="Standard vcf file")
 parser.add_argument('--coveragesummary', '-s', help="A coverage summary produced by vcf4adaptation_vcfR_plotter.R with samples as rows and culumns called q0.25 and q0.95 for filtering.")
 parser.add_argument("--min-coverage", "-m", help="Sites with less than this value gets excluded. If used, then coveragesummary q0.25 is ignored.", dest="min", type=int) # nargs='+' All, and at least one, argument
 parser.add_argument("--max-coverage", "-M", help="Sites with more than this value gets excluded. If used, then coveragesummary q0.95 is ignored.", dest="max", type=int) # nargs='+' All, and at least one, argument
@@ -31,15 +31,18 @@ parser.add_argument("--basemin", "-b", help="If set, sites will be filtered out 
 # More options
 parser.add_argument("--ignorecols", "-c", help="String of sample column numbers in base 0 to be ignored, separated by commas and starting at 0. E.g. 5,6,7.", type=str) # nargs='+' All, and at least one, argument
 parser.add_argument("--ignoremedian", "-i", help="Ignore this sample during filtering if its median is below this value. It only works with --coveragesummary.", type=float) # nargs='+' All, and at least one, argument
-
-# parser.add_argument('--uncompressed', '-z', help="VCF file is not compressed", default=False, action='store_true')
+parser.add_argument('--compressed', '-z', help="VCF file is compressed (e.g. with bgzip)", default=False, action='store_true')
 
 try:
 	# ArgumentParser parses arguments through the parse_args() method. You can
 	# parse the command line by passing a sequence of argument strings to
 	# parse_args(). By default, the arguments are taken from sys.argv[1:]
 	args = parser.parse_args()
-	vcfopen = open(args.vcf, 'r')
+	if args.compressed:
+		import gzip # to open compressed files
+		vcfopen = gzip.open(args.vcf, 'rt')
+	else:
+		vcfopen = open(args.vcf, 'r')
 
 except IOError as msg:  # Check that the file exists
     parser.error(str(msg)) 
