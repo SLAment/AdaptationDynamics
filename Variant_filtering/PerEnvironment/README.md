@@ -163,6 +163,8 @@ But the real results of the pipeline are, of course, in the `results` folder:
 - deNovoFixers_0.35_trajectories_raw.tab -- A data frame (long format) with the trajectory data of de novo mutations before manual curation.
 - deNovoGenesINFO_fixers_0.35.tab -- a table with the de novo mutation variants and their respective effects extracted from snpEff.
 
+Some of these `results` files are provided here in the repository for convenience of the user.
+
 
 ## About UPPMAX
 
