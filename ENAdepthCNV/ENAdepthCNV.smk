@@ -161,16 +161,16 @@ rule markduplicates:
 		# #                               true, false
 		# # TMP_DIR (File)  Default value: null. This option may be specified 0 or more times.
 		# # --REMOVE_DUPLICATES:Boolean   If true do not write duplicates to the output file instead of writing them with
-        # # 		                      appropriate flags set.  Default value: false. Possible values: {true, false}
-        # # --OPTICAL_DUPLICATE_PIXEL_DISTANCE:Integer
-        # #                               The maximum offset between two duplicate clusters in order to consider them optical
-        # #                               duplicates. The default is appropriate for unpatterned versions of the Illumina platform.
-        # #                               For the patterned flowcell models, 2500 is moreappropriate. For other platforms and
-        # #                               models, users should experiment to find what works best.  Default value: 100.
-        # #	--ASSUME_SORT_ORDER,-ASO:SortOrder
-        # #                               If not null, assume that the input file has this order even if the header says otherwise.
-        # #                               Default value: null. Possible values: {unsorted, queryname, coordinate, duplicate,
-        # #                               unknown}  Cannot be used in conjunction with argument(s) ASSUME_SORTED (AS)
+		# # 		                      appropriate flags set.  Default value: false. Possible values: {true, false}
+		# # --OPTICAL_DUPLICATE_PIXEL_DISTANCE:Integer
+		# #                               The maximum offset between two duplicate clusters in order to consider them optical
+		# #                               duplicates. The default is appropriate for unpatterned versions of the Illumina platform.
+		# #                               For the patterned flowcell models, 2500 is moreappropriate. For other platforms and
+		# #                               models, users should experiment to find what works best.  Default value: 100.
+		# #	--ASSUME_SORT_ORDER,-ASO:SortOrder
+		# #                               If not null, assume that the input file has this order even if the header says otherwise.
+		# #                               Default value: null. Possible values: {unsorted, queryname, coordinate, duplicate,
+		# #                               unknown}  Cannot be used in conjunction with argument(s) ASSUME_SORTED (AS)
 
 # ------- Run GenMap -------
 
