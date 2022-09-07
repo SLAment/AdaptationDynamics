@@ -25,7 +25,7 @@
 # Version 1
 
 from glob import glob
-import statistics # for median
+import statistics # for mean
 
 # -------------------------------------------------
 # External files
