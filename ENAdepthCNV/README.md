@@ -1,4 +1,4 @@
-# Looking for copy number variation in the ENA gene
+# Looking for copy number variation in the *ENA* gene from PoolSeq data
 
 In this pipeline we are interested in inferring changes in the copy number of a particular gene: *ENA*. This gene exist as a single copy in some *S. cerevisae* strains. In others, there are different number of homologs. For example, in the reference strain S288c there are 3 homologous copies named *ENA1*, *ENA2*, and *ENA5*. From these, *ENA1* is important and characterized as "P-type ATPase sodium pump; involved in Na+ and Li+ efflux to allow salt tolerance". The trio (*ENA1*, *ENA2*, and *ENA5*) seems to have been introgressed from *S. paradoxus* and is present in the European lineage of *S. cerevisae*, including S288c.
 
