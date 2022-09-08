@@ -330,7 +330,7 @@ rule Y55_findcommonset:
 		Y55_findcommonset
 
 rule haploselect:
-	""" Find alleles under selection and define haplotypes """ 
+	""" Define haplotypes """ 
 	input:
 		chroms = chroms,
 		nacl = f"vcfs/{outputname}_bi_miss0_SNPs_25x95p_map1_NaCl_shared.vcf.gz",
