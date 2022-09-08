@@ -42,15 +42,12 @@ denovomutations <- read.table(denovomutations_file, header=TRUE) %>%
 # Attach the missing info to the selected sites
 selectsites <- merge(haplos, allfreq_set, by = c("Coordinate", "Condition", "Coordicon"))
 # Reorder columns
-selectsites <- select(selectsites, c(colnames(allfreq_set), "clust", "N_var", "clust_id"))
+trajectories <- select(selectsites, c(colnames(allfreq_set), "clust", "N_var", "clust_id"))
 
 # But then there are haplotypes that are larger than others. We used a threshold
 # of 10 SNPs to find the "big boi" haplotypes
-bigbois <- filter(selectsites, N_var >= 10)
-notbigbois <- filter(selectsites, N_var < 10)
-
-# Put them back together
-trajectories <- rbind(bigbois, notbigbois)
+bigbois <- filter(trajectories, N_var >= 10)
+notbigbois <- filter(trajectories, N_var < 10)
 
 # -----
 # Plot with the colors of Ciaran's palette
