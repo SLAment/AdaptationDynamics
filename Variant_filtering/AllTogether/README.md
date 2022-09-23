@@ -147,6 +147,7 @@ The output of the pipeline is a bunch of figures, some for diagnostics (mostly i
 - `CoverageVsPropFixation_delta_SNPs.pdf` - Supplementary Figure 7, exploring the relationship of the proportion of nearly fixed sites and coverage
 - `Parallel_count_G100vsG700.pdf` - Supplementary Figure 8, comparing the number of windows fixed for a parental genotype in the environmental parallelism index analysis of generation 100 and 700
 - `Parallel_heatmap_G30.pdf` - Supplementary Figure 9, environmental parallelism index of generation 30
+- `Parallel_heatmap_G700_NaCl.png` - Supplementary Figure 10, environmental parallelism index in the NaCl, but breaking it by type of replicate
 - `Parallel_heatmap_G100vsG700.pdf` - Main figure 5, comparing the environmental parallelism index of generation 100 and 700
 - `SigmoidalPropFix_SNPs.pdf` - Main figure 4, fitting a sigmoidal curve to the proportion of nearly fixed sites
 - `Y55trajectory_SNPs_novo_Ethanol.pdf` - Supplementary Figure 6, with trajectory of all SNPs per chromosome and replicate in Ethanol

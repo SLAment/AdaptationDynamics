@@ -26,6 +26,7 @@ windowsfile <- snakemake@input$wins
 G100vsG700file <- snakemake@output$G100vsG700
 fixwinplotfile <- snakemake@output$fixwins
 G30file <- snakemake@output$G30
+NaClfile <- snakemake@output$NaCl
 
 # ============================
 # Reading the data
@@ -263,3 +264,73 @@ plotParaEnvs_G30 <- ggplot(parallelenvs_G30, aes(x = Coordinate, Environment, fi
 ggsave(plot = plotParaEnvs_G30, 
        filename = G30file,
        width = 7, height = 2)
+
+######## How much parallelism is there between the two types of replicates in NaCl, 
+# the ones that fixed a single genotype, and those that didn't?
+
+# Produce a dataframe of counts for each environment
+parallel_NaClG700_MG <- countfixation(afdf = allfreqWinAllclean %>% filter(Environment == "NaCl", 
+                                                                           Generation == "G700", 
+                                                                           Replicate %in% c("R1", "R4"))) %>% mutate(type = "R1 & R4")
+
+parallel_NaClG700_OG <- countfixation(afdf = allfreqWinAllclean %>% filter(Environment == "NaCl", 
+                                                                           Generation == "G700", 
+                                                                           Replicate %in% c("R2", "R3"))) %>% mutate(type = "R2 & R3")
+
+parallel_NaClG700_all <- countfixation(afdf = allfreqWinAllclean %>% filter(Environment == "NaCl", 
+                                                                            Generation == "G700")) %>% mutate(type = "All NaCl")
+# Put them together
+parallel_NaClG700 <- rbind(parallel_NaClG700_MG, parallel_NaClG700_OG, parallel_NaClG700_all)
+
+
+# I need an extra data frame to plot interesting regions in addition to the full plot
+parallel_NaClG700_fix <- rbind(parallel_NaClG700_MG %>% filter(abs(parallelraw) >= 8) %>% mutate(Environment = "R1 & R4"),
+                               parallel_NaClG700_OG %>% filter(abs(parallelraw) >= 8) %>% mutate(Environment = "R2 & R3"),
+                               parallel_NaClG700_all %>% filter(abs(parallelraw) >= 8) %>% mutate(Environment = "All NaCl"))
+
+
+
+plotParaNaCl_G700 <- ggplot(parallel_NaClG700, aes(x = Coordinate, type, fill= parallel)) + 
+  geom_tile() +
+  theme(axis.text.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.title.x = element_text(margin = margin(t = -1), size=9),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        plot.title = element_text(hjust = 0.5, size=11),
+        axis.ticks.x = element_blank()) +
+  scale_fill_distiller(palette = "BrBG") + # BrBG, PRGn, PuOr, RdBu
+  geom_segment(data = concatchrs, 
+               aes(x = Coordinate, xend = Coordinate, y = 0.4, yend = 0.5, colour = colchr),
+               size = 0.5) +
+  geom_point(data = parallel_NaClG700 %>% filter(abs(parallelraw) >= 4), aes(x = Coordinate), color = "red", size = 0.5) +
+  geom_point(data = parallel_NaClG700 %>% filter(type != "All NaCl", abs(parallelraw) >= 2), aes(x = Coordinate), color = "black", size = 0.5) +
+  scale_colour_manual(values = c("gray", "azure4")) + guides(colour = "none") +
+  labs(fill='Parallel\n index') + 
+  ggtitle("Generation 700 for NaCl populations") +
+  xlab("Genome coordinate (non-overlapping 10 kb windows)") +
+  scale_y_discrete(limits=rev)
+
+ggsave(plot = plotParaNaCl_G700, 
+       filename = NaClfile,
+       width = 7, height = 2)
+
+cat("Coverage of fixed windows in 2 replicates\n")
+parallel_NaClG700 %>% filter(abs(parallelraw) == 2) %>% count(type) %>% mutate(kbs = n * 10, per = (n/nwins)*100)
+
+### Number of expected shared windows by chance for two F2s
+# For a given locus with two alleles, A and B, the probability of an F2 to be 
+# homozygous for one allele is 0.5*0.5 = 0.25, and for the two possible
+# homozygous cases (AA and BB) is 0.25*2 = 0.5. The probability of two F2s to be 
+# homozygous for the same allele would then be: 
+# (Prob of homozygous first F2)*(Prob of homozygous second F2)*(prob of same allele)
+#  = 0.5*0.5*0.5 = 0.125
+0.125*nwins # 63
+
+# How many windows are overlapping in the two types of populations?
+setR1R4 <- parallel_NaClG700 %>% filter(abs(parallelraw) == 2, type == "R1 & R4") %>% .$Coordinate
+setR2R3 <- parallel_NaClG700 %>% filter(abs(parallelraw) == 2, type == "R2 & R3") %>% .$Coordinate
+
+intersect(setR1R4, setR2R3) %>% length # 16
+# So both conditions fix 129 windows but 16 of those are shared!

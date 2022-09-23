@@ -86,6 +86,7 @@ rule all:
 		"results/Parallel_heatmap_G100vsG700.png",
 		"results/Parallel_count_G100vsG700.png",
 		"results/Parallel_heatmap_G30.png",
+		"results/Parallel_heatmap_G700_NaCl.png"
 
 
 rule splitvcf_by_allelic:
@@ -396,6 +397,7 @@ rule parallelfixationplot:
 	output:
 		G100vsG700 = "results/Parallel_heatmap_G100vsG700.png",
 		fixwins = "results/Parallel_count_G100vsG700.png",
-		G30 = "results/Parallel_heatmap_G30.png",		
+		G30 = "results/Parallel_heatmap_G30.png",
+		NaCl = "results/Parallel_heatmap_G700_NaCl.png"	
 	script:
 		ParallelFixationPlot
