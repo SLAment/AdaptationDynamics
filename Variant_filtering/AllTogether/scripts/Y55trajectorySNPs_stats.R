@@ -66,7 +66,6 @@ fixfounder <- function(allfreq){
   new_allfreq_env <- allfreq_env_noF
   for (r in allfreq_env_noF$Replicate %>% unique()) {
     allfreq_env_F$Replicate <- r
-    allfreq_env_F$Replicate <- r
     new_allfreq_env <- rbind(new_allfreq_env, allfreq_env_F)
   }
   
