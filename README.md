@@ -1,6 +1,7 @@
 # Adaptation Dynamics
 
-Code associated to the project ["The dynamics of adaptation to stress from standing genetic variation and de novo mutations"](https://www.biorxiv.org/content/10.1101/2022.03.26.485920v1) from the Stelkens Lab.
+Code associated to the paper [Ament-Velásquez, S. L., Gilchrist, et al. (2022a). The dynamics of adaptation to stress from standing genetic variation
+and de novo mutations. Molecular Biology and Evolution, msac242](https://academic.oup.com/mbe/advance-article/doi/10.1093/molbev/msac242/6806091) from the [Stelkens Lab](https://stelkenslab.com/). An earlier version of the manuscript is also in [bioRxiv](https://www.biorxiv.org/content/10.1101/2022.03.26.485920v1).
 
 There are four main [Snakemake](https://snakemake.readthedocs.io/en/stable/) pipelines the deal with the variant data, analysis and plotting. 
 
@@ -14,3 +15,5 @@ The repository also contains code of Ciaran Gilchrist analysing the phenotypic d
 ----
 
 I ran the pipelines in Uppsala University's supercomputer [UPPMAX](https://uppmax.uu.se/), which has a CentOS Linux operating system with a slurm scheduler. However, they should work fine also in other unix environments.
+
+
