@@ -1,7 +1,7 @@
 # Adaptation Dynamics
 
 Code associated to the paper [Ament-Velásquez, S. L., Gilchrist, et al. (2022a). The dynamics of adaptation to stress from standing genetic variation
-and de novo mutations. Molecular Biology and Evolution, msac242](https://academic.oup.com/mbe/advance-article/doi/10.1093/molbev/msac242/6806091) from the [Stelkens Lab](https://stelkenslab.com/). An earlier version of the manuscript is also in [bioRxiv](https://www.biorxiv.org/content/10.1101/2022.03.26.485920v1).
+and de novo mutations. *Molecular Biology and Evolution*: msac242](https://academic.oup.com/mbe/advance-article/doi/10.1093/molbev/msac242/6806091). An earlier version of the manuscript is also in [bioRxiv](https://www.biorxiv.org/content/10.1101/2022.03.26.485920v1).
 
 There are four main [Snakemake](https://snakemake.readthedocs.io/en/stable/) pipelines the deal with the variant data, analysis and plotting. 
 
