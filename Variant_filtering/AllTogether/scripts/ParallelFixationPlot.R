@@ -45,6 +45,10 @@ allfreqWinAllclean$sample <- factor(allfreqWinAllclean$sample, levels = sortedsa
 cat("How many windows survived?\n")
 (allfreqWinAllclean %>% filter(sample == "Ethanol_G1000_R1") %>% nrow)*100/(allfreqWinAll %>% filter(sample == "Ethanol_G1000_R1") %>% nrow) 
 # 42.56757
+
+# Change the names so they are fancier
+allfreqWinAllclean$Environment[allfreqWinAllclean$Environment == "LiAc0.01"] <- "LiAc 0.01M"
+allfreqWinAllclean$Environment[allfreqWinAllclean$Environment == "LiAc0.02"] <- "LiAc 0.02M"
 # ============================
 # Make heatmap of parallelism
 # ============================
@@ -94,13 +98,13 @@ for (env in relevantenvs_G700){
 }
 
 ### ---- Parallelism in LiAc ----
-parallelLiAC <- countfixation(afdf = allfreqWinAllclean %>% filter(Generation == "G700", Environment %in% c("LiAc0.01", "LiAc0.02")))
+parallelLiAC <- countfixation(afdf = allfreqWinAllclean %>% filter(Generation == "G700", Environment %in% c("LiAc 0.01M", "LiAc 0.02M")))
 # The "Environment" is an artifact from the function
 parallelLiAC$Environment <- "LiAC"
           
 # I need an extra data frame to plot interesting regions in addition to the full plot
-parallelLiAC_fix <- rbind(parallelLiAC %>% filter(fix %in% c(-1,1)) %>% mutate(Environment = "LiAc0.01"),
-                          parallelLiAC %>% filter(fix %in% c(-1,1)) %>% mutate(Environment = "LiAc0.02"))
+parallelLiAC_fix <- rbind(parallelLiAC %>% filter(fix %in% c(-1,1)) %>% mutate(Environment = "LiAc 0.01M"),
+                          parallelLiAC %>% filter(fix %in% c(-1,1)) %>% mutate(Environment = "LiAc 0.02M"))
 
 ##### ---- A summary plot -----
 # I need the windows for marking the chromosomes at the base of the plot
@@ -121,7 +125,7 @@ plotParaEnvs_G700 <- ggplot(parallelenvs_G700, aes(x = Coordinate, Environment, 
         plot.title = element_text(hjust = 0.5, size=11),
         axis.ticks.x = element_blank()) +
   geom_point(data = parallelenvs_G700 %>% filter(abs(parallelraw) >= 4), aes(x = Coordinate), color = "black", size = 0.5) +
-  geom_point(data = parallelLiAC_fix, aes(x = Coordinate), color = "red", size = 0.5) +
+  geom_point(data = parallelLiAC_fix, aes(x = Coordinate), color = "hotpink1", shape = 3, size = 1) +
   scale_fill_distiller(palette = "BrBG") + # BrBG, PRGn, PuOr, RdBu
   labs(fill='Parallel\n index') + 
   geom_segment(data = concatchrs, 
@@ -143,10 +147,10 @@ for (env in relevantenvs_G100){
   parallelenvs_G100 <- rbind(parallelenvs_G100, thisenv)
 }
 
-parallelLiAC_G100 <- countfixation(afdf = allfreqWinAllclean %>% filter(Generation == "G100", Environment %in% c("LiAc0.01", "LiAc0.02")))
+parallelLiAC_G100 <- countfixation(afdf = allfreqWinAllclean %>% filter(Generation == "G100", Environment %in% c("LiAc 0.01M", "LiAc 0.02M")))
 # I need an extra data frame to plot interesting regions in addition to the full plot
-parallelLiAC_fix_G100 <- rbind(parallelLiAC_G100 %>% filter(fix %in% c(-1,1)) %>% mutate(Environment = "LiAc0.01"),
-                               parallelLiAC_G100 %>% filter(fix %in% c(-1,1)) %>% mutate(Environment = "LiAc0.02"))
+parallelLiAC_fix_G100 <- rbind(parallelLiAC_G100 %>% filter(fix %in% c(-1,1)) %>% mutate(Environment = "LiAc 0.01M"),
+                               parallelLiAC_G100 %>% filter(fix %in% c(-1,1)) %>% mutate(Environment = "LiAc 0.02M"))
 
 plotParaEnvs_G100 <- ggplot(parallelenvs_G100, aes(x = Coordinate, Environment, fill= parallel)) + 
   geom_tile() +
@@ -159,7 +163,7 @@ plotParaEnvs_G100 <- ggplot(parallelenvs_G100, aes(x = Coordinate, Environment, 
         plot.title = element_text(hjust = 0.5, size=11),
         axis.ticks.x = element_blank()) +
   geom_point(data = parallelenvs_G100 %>% filter(abs(parallelraw) >= 4), aes(x = Coordinate), color = "black", size = 0.5) +
-  geom_point(data = parallelLiAC_fix_G100, aes(x = Coordinate), color = "red", size = 0.5) +
+  geom_point(data = parallelLiAC_fix_G100, aes(x = Coordinate), color = "hotpink1", shape = 3, size = 1) +
   scale_fill_distiller(palette = "BrBG") + # BrBG, PRGn, PuOr, RdBu
   geom_segment(data = concatchrs, 
                  aes(x = Coordinate, xend = Coordinate, y = 0.4, yend = 0.5, colour = colchr),
@@ -232,10 +236,10 @@ for (env in relevantenvs_G30){
   thisenv <- countfixation(afdf = allfreqWinAllclean %>% filter(Environment == env, Generation == "G30"))
   parallelenvs_G30 <- rbind(parallelenvs_G30, thisenv)
 }
-parallelLiAC_G30 <- countfixation(afdf = allfreqWinAllclean %>% filter(Generation == "G30", Environment %in% c("LiAc0.01", "LiAc0.02")))
+parallelLiAC_G30 <- countfixation(afdf = allfreqWinAllclean %>% filter(Generation == "G30", Environment %in% c("LiAc 0.01M", "LiAc 0.02M")))
 # I need an extra data frame to plot interesting regions in addition to the full plot
-parallelLiAC_fix_G30 <- rbind(parallelLiAC_G30 %>% filter(abs(parallelraw) >= 8) %>% mutate(Environment = "LiAc0.01"),
-                              parallelLiAC_G30 %>% filter(abs(parallelraw) >= 8) %>% mutate(Environment = "LiAc0.02"))
+parallelLiAC_fix_G30 <- rbind(parallelLiAC_G30 %>% filter(abs(parallelraw) >= 8) %>% mutate(Environment = "LiAc 0.01M"),
+                              parallelLiAC_G30 %>% filter(abs(parallelraw) >= 8) %>% mutate(Environment = "LiAc 0.02M"))
 
 
 plotParaEnvs_G30 <- ggplot(parallelenvs_G30, aes(x = Coordinate, Environment, fill= parallel)) + 
