@@ -319,6 +319,12 @@ plotgenes_experiment <- function(coolgenes, subtitle = "", deNovofixersdf = deNo
   return(p)
 }
 
+# Change the names so they match the main text of the manuscript
+deNovofixers_snpeff$Environment[deNovofixers_snpeff$Environment == "LiAc0.01"] <- "LiAc 0.01M"
+deNovofixers_snpeff$Environment[deNovofixers_snpeff$Environment == "LiAc0.02"] <- "LiAc 0.02M"
+allfreq_denovo_snpeff$Environment[allfreq_denovo_snpeff$Environment == "LiAc0.01"] <- "LiAc 0.01M"
+allfreq_denovo_snpeff$Environment[allfreq_denovo_snpeff$Environment == "LiAc0.02"] <- "LiAc 0.02M"
+
 # BioRxiv
 biorxiv <- plotgenes_experiment(c("ISW2", "CYC8", "CMK2", "CNB1", "SNF4", "SNF3", "WIP1"), "Genes with multiple independent mutations") +
   labs(title = NULL)
