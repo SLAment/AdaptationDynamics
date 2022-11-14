@@ -170,16 +170,19 @@ for (env in unique(allfreq_set$Environment)) {
   }
 }
 
+# So I can tell them apart more easily
+propfixdf <- propfixdf %>% mutate(Condition = paste0(Environment, "_", Replicate))
+
+# Change the names so they are fancier
+propfixdf$Environment[propfixdf$Environment == "LiAc0.01"] <- "LiAc 0.01M"
+propfixdf$Environment[propfixdf$Environment == "LiAc0.02"] <- "LiAc 0.02M"
+
 # Plot with the colors of Ciaran's palette
 CiaransPalette <- c("NaCl_R1" = "#87CEFA", "NaCl_R2" = "#5AA3CF", "NaCl_R3" = "#1E90FF", "NaCl_R4" = "#4169E1",
                     "Ethanol_R1" = "#CD5C5C", "Ethanol_R2" = "#FF0000", "Ethanol_R3" = "#AC1016", "Ethanol_R4" = "#67000C",
                     "LiAc0.01_R1" = "#D8BFD8", "LiAc0.01_R2" = "#DA70D6", "LiAc0.01_R3" = "#9400D3", "LiAc0.01_R4" = "#800080", "LiAc0.01_R5" = "#4B0082",
                     "LiAc0.02_R1" = "#98D493", "LiAc0.02_R2" = "#9ACD32", "LiAc0.02_R3" = "#228B22", "LiAc0.02_R4" = "#6B8E23", "LiAc0.02_R5" = "#00441B",
                     "Ethanol" = "#AC1016", "NaCl" = "#4169E1", "LiAc0.01" = "#800080", "LiAc0.02" = "#228B22" )
-
-
-# So I can tell them apart more easily
-propfixdf <- propfixdf %>% mutate(Condition = paste0(Environment, "_", Replicate))
 
 # ============================
 # Getting some descriptive numbers - sigmoidal curve 
@@ -277,7 +280,7 @@ timetomax <- ggplot(propfixsig, aes(x = Environment, y = reachMaximum_x, colour 
     ylab("Time to maximum proportion \nof fixed sites (generations)") +
     theme_bw() +
     ylim(0,400) +
-    theme(legend.position = "none") +
+    theme(legend.position = "none", axis.text.x = element_text(angle = 15, hjust = 0.6)) +
     scale_colour_manual(values = CiaransPalette)
 
 # Slope
@@ -297,7 +300,7 @@ maxyp <- ggplot(propfixsig, aes(x = Environment, y = maximum_y, colour = Environ
     xlab("") +
     theme_bw() +
     expand_limits(y=0) + # Only affect lower bound, otherwise the points at 1 are lost
-    theme(legend.position = "none") +
+    theme(legend.position = "none", axis.text.x = element_text(angle = 15, hjust = 0.6)) +
     scale_colour_manual(values = CiaransPalette)
 
 rightside <- plot_grid(maxyp, timetomax, nrow = 2, labels = c('B', 'C'))
