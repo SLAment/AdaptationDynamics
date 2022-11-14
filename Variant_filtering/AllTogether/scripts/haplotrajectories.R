@@ -72,7 +72,13 @@ bigbois_sampled <- rbind(sampleEnv("NaCl"),
       sampleEnv("LiAc0.01"),
       sampleEnv("LiAc0.02") )
 
-## The full experiment with the de novo mutations # Paper figure!!
+## The full experiment with the de novo mutations # Paper Figure 3!!
+# Change the names so they are fancier
+bigbois_sampled$Environment[bigbois_sampled$Environment == "LiAc0.01"] <- "LiAc 0.01M"
+bigbois_sampled$Environment[bigbois_sampled$Environment == "LiAc0.02"] <- "LiAc 0.02M"
+denovomutations$Environment[denovomutations$Environment == "LiAc0.01"] <- "LiAc 0.01M"
+denovomutations$Environment[denovomutations$Environment == "LiAc0.02"] <- "LiAc 0.02M"
+
 sampledhaplo <- ggplot(bigbois_sampled %>% filter(!sample %in% c("SK1", "Y55")), 
        aes(x = gen, y = 1 - freqY55, colour = as.factor(clust), fill = Coordicon)) + 
   geom_line(alpha = 0.5, size = 0.8) +
