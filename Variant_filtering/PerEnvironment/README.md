@@ -154,9 +154,9 @@ Associated to the figures there are several tables containing the data for the p
 
 But the real results of the pipeline are, of course, in the `results` folder:
 
-- deNovo_all_0.1_CoolGenes.pdf -- The Figure 6 in the [bioRxiv manuscript](https://www.biorxiv.org/content/10.1101/2022.03.26.485920v1).
+- deNovo_all_0.1_CoolGenes.pdf -- Figure 7 in the final paper (Fig. 6 in the [bioRxiv manuscript](https://www.biorxiv.org/content/10.1101/2022.03.26.485920v1)).
 ![coolgenes](deNovo_all_0.1_CoolGenes.png "coolgenes")
-- deNovoFixers_0.35_genes_4stringdb.txt -- The list of genes used as input for the [STRING database](https://string-db.org/cgi/network?taskId=bELrKuOvTs6q&sessionId=bWoDGnbyDEkf&allnodes=1), used to produce Figure 5 in the BioRxiv.
+- deNovoFixers_0.35_genes_4stringdb.txt -- The list of genes used as input for the [STRING database](https://string-db.org/cgi/network?taskId=bELrKuOvTs6q&sessionId=bWoDGnbyDEkf&allnodes=1), used to produce the Supplementary Figure 11 (Figure 5 in the BioRxiv).
 - deNovoFixers_0.35_SNPeff.pdf -- Supplementary Figure 7 in the BioRxiv with the distribution of effects of the de novo mutations.
 ![snpEff](deNovoFixers_0.35_SNPeff.png "snpEff")
 - deNovoFixers_0.35_trajectories_curated.tab -- A data frame (long format) with the trajectory data of the curated de novo mutations. Used by `vcf4adaptation.smk`.
